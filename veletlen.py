@@ -17,6 +17,17 @@ def fel1():
 
 
 
+def felt2():
+    b_db = int(input("Mennyi betűt generáljon: "))
+    with open("ki.txt", "w", encoding="UTF-8") as f:
+            for i in range(b_db):
+                for i in range(random.randint(1, 20)):
+                    y = random.choice(string.ascii_letters)
+                    f.write(f"{y}")
+                
+                f.write(f";")
+
+
 
 
 
@@ -30,6 +41,7 @@ while True:
 
     elif valasztas == "2":
         print("2")
+        felt2()
         break
 
 
