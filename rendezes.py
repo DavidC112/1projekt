@@ -67,9 +67,25 @@ def Kertitorperendezes_csokkeno():
 Listabahelyezes()
 
 if Ellenorzes():
-    Egyszerurendezes_csokkeno()
-    Egyszerurendezes_novekvo()
-    Kertitorperendezes_csokkeno()
-    Kertitorperendezes_novekvo()
+    inpt = input("Válaszd ki az algoritmust: egyszerű(e) vagy kertitörpe-rendezés(k): ")
+    while inpt != "e" or inpt != "k":
+        if inpt == "e" or inpt == "k":
+            break
+        inpt = input("Válaszd ki az algoritmust: egyszerű(e) vagy kertitörpe-rendezés(k): ")
+
+    inpt_2 = input("Válaszd ki hogy növekvő(n) vagy csökkenő(cs) legyen a renezés: ")
+    while inpt_2 != "n" or inpt_2 != "cs":
+        if inpt_2 == "n" or inpt_2 == "cs":
+            break
+        inpt_2 = input("Válaszd ki hogy növekvő(n) vagy csökkenő(cs) legyen a renezés: ")  
+    
+    if inpt == "e" and inpt_2 == "n":
+        Egyszerurendezes_novekvo()
+    elif inpt == "e" and inpt_2 == "cs":
+        Egyszerurendezes_csokkeno()
+    elif inpt == "k" and inpt_2 == "n":
+        Kertitorperendezes_novekvo()
+    elif inpt == "k" and inpt_2 == "cs":
+        Kertitorperendezes_csokkeno()
 else:
     print("Az adatok nem megfelelőek")
