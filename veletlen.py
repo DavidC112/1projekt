@@ -18,12 +18,12 @@ def fel1():
 
 
 def felt2():
-    b_db = int(input("Mennyi betűt generáljon: "))
+    karakter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    b_db = int(input("Mennyi szöveg legyen generálva: "))
     with open("ki.txt", "w", encoding="UTF-8") as f:
             for i in range(b_db):
                 for i in range(random.randint(1, 20)):
-                    y = random.choice(string.ascii_letters)
-                    f.write(f"{y}")
+                    f.write(f"{random.choice(range(len(karakter)))}")
                 
                 f.write(f";")
 
@@ -33,7 +33,7 @@ def fel3():
      
     sz_also = int(input("Mennyi legyen az alsó határ: ")) 
     sz_felso = int(input("Mennyi legyen a felső határ: ")) 
-    sz_db = int(input("Mennyi számot generáljon: ")) 
+    sz_db = int(input("Mennyi szám volt generálva: ")) 
     adatok = []
     db = 0
 
@@ -60,7 +60,35 @@ def fel3():
 
 
         
-    def fel4():
+def fel4():
+    b_db = int(input("Mennyi szöveg volt generálva: "))
+    with open("ki.txt", "r", encoding="UTF-8") as f:
+        adatok= f.read().split(';')
+        del adatok[-1]
+    print(adatok)
+    betuk = []
+    for x in adatok:
+
+        for i in range(len(x)):
+            betuk.append(x[i])
+
+
+    print(betuk)
+    y = 0
+    for x in betuk:
+        if type(x) == string:
+            y = 1
+    
+
+    print(y)
+    if y == 0:
+        print("Nem felel meg a paramétereknek.")
+    
+    else:
+        print("Megfelet.")
+
+
+
 
 
 
