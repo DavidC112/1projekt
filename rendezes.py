@@ -64,6 +64,27 @@ def Kertitorperendezes_csokkeno():
             index = index - 1        
     print(adatok)
 
+def Adatbekeres_szam():
+    while True:
+        try:
+            inpt = int(input("írj be egy új számot: "))
+            break
+        except ValueError:
+            print("Az adat a megadott feltételeknek nem felele meg, kérlek próbáld újra!")
+
+    return inpt
+
+def Adatbekeres_szoveg():
+    while True:
+        try:
+            inpt = input("Írj be egy új szöveget: ")
+            if inpt.isalpha():
+                break
+        except ValueError:
+            print("Az adat a megadott feltételeknek nem felele meg, kérlek próbáld újra!") 
+
+    return inpt
+
 Listabahelyezes()
 
 if Ellenorzes():
@@ -81,11 +102,38 @@ if Ellenorzes():
     
     if inpt == "e" and inpt_2 == "n":
         Egyszerurendezes_novekvo()
+        if Ellenorzes() == "szam":
+            adatok.append(Adatbekeres_szam())
+            Egyszerurendezes_novekvo()
+        if Ellenorzes() == "szoveg":
+            adatok.append(Adatbekeres_szoveg())
+            Egyszerurendezes_novekvo()
+
     elif inpt == "e" and inpt_2 == "cs":
         Egyszerurendezes_csokkeno()
+        if Ellenorzes() == "szam":
+            adatok.append(Adatbekeres_szam())
+            Egyszerurendezes_csokkeno()
+        if Ellenorzes() == "szoveg":
+            adatok.append(Adatbekeres_szoveg())
+            Egyszerurendezes_csokkeno()
+
     elif inpt == "k" and inpt_2 == "n":
         Kertitorperendezes_novekvo()
+        if Ellenorzes() == "szam":
+            adatok.append(Adatbekeres_szam())
+            Kertitorperendezes_novekvo()
+        if Ellenorzes() == "szoveg":
+            adatok.append(Adatbekeres_szoveg())
+            Kertitorperendezes_novekvo()
+
     elif inpt == "k" and inpt_2 == "cs":
         Kertitorperendezes_csokkeno()
+        if Ellenorzes() == "szam":
+            adatok.append(Adatbekeres_szam())
+            Kertitorperendezes_csokkeno()
+        if Ellenorzes() == "szoveg":
+            adatok.append(Adatbekeres_szoveg())
+            Kertitorperendezes_csokkeno()
 else:
     print("Az adatok nem megfelelőek")
