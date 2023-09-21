@@ -29,6 +29,39 @@ def felt2():
 
 
 
+def fel3():
+     
+    sz_also = int(input("Mennyi legyen az alsó határ: ")) 
+    sz_felso = int(input("Mennyi legyen a felső határ: ")) 
+    sz_db = int(input("Mennyi számot generáljon: ")) 
+    adatok = []
+    db = 0
+
+
+    with open("ki.txt", "r", encoding="UTF-8") as f:
+        adatok= f.read().split(';')
+        del adatok[-1]
+
+    adatok = [eval(i) for i in adatok]
+
+    for x in adatok:
+        db += 1
+        if sz_also > x  and x > sz_felso:
+              print("A 'ki.txt' nem felel meg a megadott paramétereknek.")
+              break
+              
+             
+        if db != sz_db :  
+            print("A 'ki.txt' nem felel meg a megadott paramétereknek.")
+            break
+            
+        else:
+            print("A 'ki.txt' megfelel a megadott paramétereknek.") 
+
+
+        
+    def fel4():
+
 
 
 while True:
@@ -47,10 +80,12 @@ while True:
 
     elif valasztas == "3":
         print("3")
+        fel3()
         break
 
     elif valasztas == "4":
         print("4")
+        fel4()
         break
     
     else:
