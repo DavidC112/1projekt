@@ -5,10 +5,23 @@ print("Melyik opciót szeretnéd választani:\n1. Számok Generálása\n2. Betű
 
 
 
+def vizsgalat(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            return value
+        except ValueError:
+            print("Hibás bemenet! Kérlek adj meg egy érvényes számot.")
+
+
 def fel1():
-    sz_also = int(input("Mennyi legyen az alsó határ: ")) 
-    sz_felso = int(input("Mennyi legyen a felső határ: ")) 
-    sz_db = int(input("Mennyi számot generáljon: ")) 
+    try:
+        sz_also = int(input("Mennyi legyen az alsó határ: ")) 
+        sz_felso = int(input("Mennyi legyen a felső határ: ")) 
+        sz_db = int(input("Mennyi számot generáljon: ")) 
+    except ValueError:
+        print("Hibás adatokat adtál meg.")
+        return
     
     with open("ki.txt", "w", encoding="UTF-8") as f: 
         for i in range(sz_db):
@@ -18,7 +31,12 @@ def fel1():
 
 
 def felt2():
-    b_db = int(input("Mennyi szöveg legyen generálva: "))
+    try:
+        b_db = int(input("Mennyi szöveg legyen generálva: "))
+    except ValueError:
+        print("Hibás adatokat adtál meg.")
+        return
+
     with open("ki.txt", "w", encoding="UTF-8") as f:
             for i in range(b_db):
                 for i in range(random.randint(1, 20)):
@@ -29,16 +47,26 @@ def felt2():
 
 
 def fel3():
-     
-    sz_also = int(input("Mennyi legyen az alsó határ: ")) 
-    sz_felso = int(input("Mennyi legyen a felső határ: ")) 
-    sz_db = int(input("Mennyi szám volt generálva: ")) 
+    try: 
+        sz_also = int(input("Mennyi legyen az alsó határ: ")) 
+        sz_felso = int(input("Mennyi legyen a felső határ: ")) 
+        sz_db = int(input("Mennyi szám volt generálva: ")) 
+    except ValueError:
+        print("Hibás adatokat adtál meg.")
+        return
+    
+
     adatok = []
     db = 0
 
-    with open("ki.txt", "r", encoding="UTF-8") as f:
-        adatok= f.read().split(';')
-        del adatok[-1]
+
+    try:
+        with open("ki.txt", "r", encoding="UTF-8") as f:
+            adatok= f.read().split(';')
+            del adatok[-1]
+    except FileNotFoundError:
+        print("Nem található a 'ki.txt'.")
+        return
     adatok = [eval(i) for i in adatok]
 
     for x in adatok:
@@ -57,11 +85,20 @@ def fel3():
 
         
 def fel4():
-    b_db = int(input("Mennyi szöveg volt generálva: "))
+    try:
+        b_db = int(input("Mennyi szöveg volt generálva: "))
+    except ValueError:
+        print("Hibás adatokat adtál meg.")
+        return
+    
     y = True
-    with open("ki.txt", "r", encoding="UTF-8") as f:
-        adatok= f.read().split(';')
-        del adatok[-1]
+    try:
+        with open("ki.txt", "r", encoding="UTF-8") as f:
+            adatok= f.read().split(';')
+            del adatok[-1]
+    except FileNotFoundError:
+        print("Nem található a 'ki.txt'.")
+        return
     betuk = []
     for x in adatok:
         for i in range(len(x)):
@@ -82,7 +119,7 @@ def fel4():
 
 
 while True:
-    valasztas = input("Írd be a választott lehetőség számát: ") 
+    valasztas = input("Írd be a választott lehetőség számát: ")
     if valasztas == "1":
         print("1") 
         fel1()       
@@ -104,4 +141,4 @@ while True:
         break
     
     else:
-        print("Nincs ilyen opció.")
+        print("Nincs ilyen opció.")  
