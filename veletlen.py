@@ -35,7 +35,6 @@ def fel1():
                 if x not in szamok:
                     szamok.append(x)
 
-            print(szamok)
 
             with open("ki.txt", "w", encoding="UTF-8") as f: 
                 for x in szamok:
@@ -83,8 +82,8 @@ def felt2():
 
 def fel3():
     try:                                                                                                    #hibakezelés
-        sz_also = int(input("Mennyi legyen az alsó határ: ")) 
-        sz_felso = int(input("Mennyi legyen a felső határ: ")) 
+        sz_also = int(input("Mennyi volt az alsó határ: ")) 
+        sz_felso = int(input("Mennyi volt a felső határ: ")) 
         sz_db = int(input("Mennyi szám volt generálva: ")) 
     except ValueError:
         print(f"{piros}Hibás adatokat adtál meg.{alap}")
@@ -98,7 +97,6 @@ def fel3():
     try:
         with open("ki.txt", "r", encoding="UTF-8") as f:
             adatok= f.read().split(';')
-            del adatok[-1]
     except FileNotFoundError:
         print(f"{piros}Nem található a 'ki.txt'.{alap}")
         return
@@ -107,14 +105,14 @@ def fel3():
     for x in adatok:
         db += 1
         if sz_also > x  and x > sz_felso:
-              print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap}")
+              print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap} 1")
               break
               
-        if db != sz_db :  
-            print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap}")
-            break
+    if db != sz_db :
+        print(db)  
+        print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap}2")
             
-        else:
+    else:
             print(f"{zold}A 'ki.txt' megfelel a megadott paramétereknek.{alap}")  
 
 
@@ -129,7 +127,6 @@ def fel4():
     try:                                                                                            #hibakezelés  
         with open("ki.txt", "r", encoding="UTF-8") as f:
             adatok= f.read().split(';')
-            del adatok[-1]
     except FileNotFoundError:
         print(f"{piros}Nem található a 'ki.txt'.{alap}")
         return  
@@ -143,15 +140,20 @@ def fel4():
 
     if len(adatok) != b_db:
         y = False
+        print(b_db)
+        print(len(adatok))
+        print(f"{piros}A fálj nem felel meg a megadott paramétereknek.{alap}")
 
     for x in betuk:
         if x not in karakter:
-            y = False  
+            y = False
+            print(f"{piros}A fálj nem felel meg a megadott paramétereknek.{alap}")
+            break
 
-    if y:
+    if y == True:
         print(f"{zold}Nincs hiba a fájlban.{alap}")
-    else:
-        print(f"{piros}A fálj nem felel meg a megadott paramétereknek.{alap}")
+
+        
 
 
 
