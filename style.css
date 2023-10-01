@@ -1,0 +1,101 @@
+body {
+    background-color: #1f1f1e;
+    margin: 0;
+    color: rgb(93, 248, 163);
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.flex-szoveg{
+    white-space: pre-line;
+}
+#elso-kod{
+    white-space: pre-line;
+}
+.kopasznev{
+    text-decoration: none;
+    color: rgb(35, 173, 58);
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1; 
+}
+
+.scrollable-block {
+    width: 850px;
+    height:700px;
+    background-color: rgba(82, 179, 103, 0.418);
+    overflow-y: auto;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(35, 173, 58);
+    color: rgb(35, 173, 58);
+    font-size: 16px;
+    
+}
+
+.scrollable-block::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-block::-webkit-scrollbar-track {
+    background: #374b33;
+}
+
+.scrollable-block::-webkit-scrollbar-thumb {
+    background: #f1f1f1;
+}
+
+.scrollable-block::-webkit-scrollbar-thumb:hover {
+    background: #629161;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #629161;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #374b33;
+}
+
+#header-text {
+    font-family: monospace;
+    text-align: center;
+    font-weight: 1000;
+    font-size: 45px;
+    color: rgb(35, 173, 58);
+    text-decoration: solid;
+    text-decoration-color: rgb(16, 204, 9);
+    text-decoration-line: overline;
+}
+
+#bg-color {
+    background-color: rgba(82, 179, 103, 0.418);
+    margin: 0 auto;
+    max-width: 1000px; 
+    padding: 20px;
+    border-radius: 0px 0px 100px 100px;
+}
+
+@media screen and (max-width: 768px) {
+    
+    #bg-color {
+        margin: 0 10px; 
+    }
+}

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Rendezési algoritmusok projektmunka</title>
+</head>
+<body>
+    <header><div id="bg-color">
+        <div id="header-text">Rendezési algoritmusok projektmunka</div>
+    </div></header>
+<div class="container">
+        <div class="scrollable-block" id="bal-s-b">
+            <!-- bal -->
+            <h1  ><center> Cornuta Dávid</center></h1>
+            <p class="flex-szoveg">1. Adott darabszámú véletlen egész számok generálása adott határok között. A határokat és a 
+                darabszámot olvassa be a program!
+                2. Adott darabszámú véletlen szöveg generálása az angol ABC nagybetűiből vagy kisbetűiből. 
+                A szövegek hossza véletlen legyen 1 és 20 karakter között, a darabszámot olvasd be!
+                A generálások után a ki.txt állományba legyen kiírva az eredmény! A szövegek és a számok 
+                legyenek ;-vel elválasztva!
+                3. Ugyanazokat a paramétereket olvassa be, mint az 1. feladat, de itt nem generálja a számokat, 
+                hanem beolvassa a ki.txt tartalmát, és leellenőrzi, hogy megfelel-e a feltételeknek.
+                4. Ugyanazokat a paramétereket olvassa be, mint a 2. feladat, de itt nem generálja a szöveget, 
+                hanem beolvassa a ki.txt tartalmát, és leellenőrzi, hogy megfelel-e a feltételeknek.<br>-------------------x------------------------------------x-----------------------------</p>
+          <p id="elso-kod">piros = "\033[91m"
+            zold = "\033[92m"
+            alap = "\033[0m"
+            
+            import random
+            import os
+            
+            karakter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+            
+            
+            print("Melyik opciót szeretnéd választani:\n1. Számok Generálása\n2. Betűk generálása.\n3. ki.txt ellenőrzése számokkal\n4. ki.txt ellenőrzése betűkkel")
+            
+            
+            
+            def fel1():
+                try:                                                                                                #hibakezelés
+                    sz_also = int(input("Mennyi legyen az alsó határ: ")) 
+                    sz_felso = int(input("Mennyi legyen a felső határ: ")) 
+                    sz_db = int(input("Mennyi számot generáljon: ")) 
+                except ValueError:                                                                          
+                    print(f"{piros}Hibás adatokat adtál meg.{alap}")                        
+                    return
+                if sz_also > sz_felso:
+                    print(f"{piros}Az alsó határ nem lehet nagyobb mint a felső.{alap}")
+            
+                                                                                                                    #ha működik
+            
+                else:
+                    szamok = []
+                    if sz_felso - sz_also >= sz_db:
+                        while(len(szamok)) < sz_db:
+                            x = random.randint(sz_also, sz_felso)
+                            if x not in szamok:
+                                szamok.append(x)
+            
+            
+                        with open("ki.txt", "w", encoding="UTF-8") as f: 
+                            for x in szamok:
+                                f.write(f"{x};")
+            
+            
+                        with open('ki.txt', 'rb+') as f:
+                            f.seek(-1, os.SEEK_END)             #utolsó ';' törlése
+                            f.truncate()
+                            
+            
+                    else:
+                        with open("ki.txt", "w", encoding="UTF-8") as f: 
+                            for i in range(sz_db):
+                                x = random.randint(sz_also, (sz_felso))
+                                f.write(f"{x};")
+            
+            
+                        with open('ki.txt', 'rb+') as f:        
+                            f.seek(-1, os.SEEK_END)
+                            f.truncate()
+                            
+            
+            
+            
+            def felt2():
+                try:                                                                                                    #hibakezelés
+                    b_db = int(input("Mennyi szöveg legyen generálva: "))
+                except ValueError:
+                    print(f"{piros}Hibás adatokat adtál meg.{alap}")
+                    return
+            
+                with open("ki.txt", "w", encoding="UTF-8") as f:
+                        for i in range(b_db):
+                            for i in range(random.randint(1, 20)):
+                                x= random.choice(range(len(karakter)))
+                                f.write(f"{karakter[x]}")
+                            f.write(f";")
+            
+                with open("ki.txt", "rb+") as f:
+                    f.seek(-1, os.SEEK_END)
+                    f.truncate()
+            
+            
+            
+            def fel3():
+                try:                                                                                                    #hibakezelés
+                    sz_also = int(input("Mennyi volt az alsó határ: ")) 
+                    sz_felso = int(input("Mennyi volt a felső határ: ")) 
+                    sz_db = int(input("Mennyi szám volt generálva: ")) 
+                except ValueError:
+                    print(f"{piros}Hibás adatokat adtál meg.{alap}")
+                    return
+                
+            
+                adatok = []
+                db = 0
+            
+            
+                try:
+                    with open("ki.txt", "r", encoding="UTF-8") as f:
+                        adatok= f.read().split(';')
+                except FileNotFoundError:
+                    print(f"{piros}Nem található a 'ki.txt'.{alap}")
+                    return
+                adatok = [eval(i) for i in adatok]
+            
+                for x in adatok:
+                    db += 1
+                    if sz_also > x  and x > sz_felso:
+                          print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap} 1")
+                          break
+                          
+                if db != sz_db :
+                    print(db)  
+                    print(f"{piros}A 'ki.txt' nem felel meg a megadott paramétereknek.{alap}2")
+                        
+                else:
+                        print(f"{zold}A 'ki.txt' megfelel a megadott paramétereknek.{alap}")  
+            
+            
+                    
+            def fel4():
+                try:                                                                                            #hibakezelés                                                                      
+                    b_db = int(input("Mennyi szöveg volt generálva: "))
+                except ValueError:
+                    print(f"{piros}Hibás adatokat adtál meg.{alap}")
+                    return
+                 
+                try:                                                                                            #hibakezelés  
+                    with open("ki.txt", "r", encoding="UTF-8") as f:
+                        adatok= f.read().split(';')
+                except FileNotFoundError:
+                    print(f"{piros}Nem található a 'ki.txt'.{alap}")
+                    return  
+                
+            
+                betuk = []
+                y = True
+                for x in adatok:
+                    for i in range(len(x)):
+                        betuk.append(x[i])
+            
+                if len(adatok) != b_db:
+                    y = False
+                    print(b_db)
+                    print(len(adatok))
+                    print(f"{piros}A fálj nem felel meg a megadott paramétereknek.{alap}")
+            
+                for x in betuk:
+                    if x not in karakter:
+                        y = False
+                        print(f"{piros}A fálj nem felel meg a megadott paramétereknek.{alap}")
+                        break
+            
+                if y == True:
+                    print(f"{zold}Nincs hiba a fájlban.{alap}")
+            
+                    
+            
+            
+            
+            while True:
+                valasztas = input("Írd be a választott lehetőség számát: ")
+                if valasztas == "1":
+                    print("1") 
+                    fel1()       
+                    break
+            
+                elif valasztas == "2":
+                    print("2")
+                    felt2()
+                    break
+            
+                elif valasztas == "3":
+                    print("3")
+                    fel3()
+                    break
+            
+                elif valasztas == "4":
+                    print("4")
+                    fel4()
+                    break
+                
+                else:
+                    print(f"{piros}Nincs ilyen opció.{alap}")  </p>
+        </div>
+        <div class="scrollable-block" id="jobb-s-b">
+            <!-- jobb -->
+            <h1  ><center><a class="kopasznev" href="rendezes.html">Sinkó Dávid</a></center></h1>
+            <p class="flex-szoveg">1. Eldönti, hogy az állományban számok vagy szövegek vannak benne, és eszerint hozza létre 
+                az adatszerkezetet a program. Ha helytelen az adat, ne folytassa tovább a rendezést!
+                2. Megvalósít egy rendezési algoritmust a következő algoritmusok valamelyikével. Lehessen 
+                választani növekvő vagy csökkenő rendezést!
+                Egyszerű cserés rendezés, buborékrendezés, továbbfejlesztett buborékrendezés, beszúrásos 
+                rendezés, továbbfejlesztett beszúrásos rendezés, minimum/maximumkiválasztásos rendezés.
+                A programban lehessen választani, hogy növekvő vagy csökkenő legyen a rendezés!
+                3. Keress egy rendezési algoritmust, amely különbözik az előzőktől, és valósítsd meg ezzel a 
+                rendezést!
+                4. Legyen a programban egy új funkció, amely beolvas egy új számot vagy szöveget, és a 
+                keresés segítségével beilleszti a megfelelő helyre az elemet. <br>-------------------x---------------------x---------------------
+                </p>
+           <p id="elso-kod">
+            import re
+            
+            adatok=[]
+            with open("ki.txt", "r", encoding="utf-8") as f:
+                for x in f:
+                    split=x.split(";")
+                    split.pop(-1)
+            
+            def Ellenorzes():
+                string ="".join(split)
+                string = string.replace("-","")
+                if string.isnumeric() is True:
+                    return "szam"
+            
+                elif bool(re.match("^[A-Za-z]*$", string)) is True:
+                    return "szoveg"
+            
+                else:
+                    return False
+            
+            def ListabaHelyezes():
+                if Ellenorzes() == "szam":
+                    for x in split:
+                        adatok.append(int(x))
+                if Ellenorzes() == "szoveg":
+                    for x in split:
+                        adatok.append(x) 
+            
+            def Egyszeru_novekvo():
+                for x in range(len(adatok) - 1):
+                    for y in range(x + 1, len(adatok)):
+                        if adatok[x] > adatok[y]:
+                            adatok[x], adatok[y] = adatok[y], adatok[x]
+                            
+                for adat in adatok:
+                    print(adat, end=" ")
+                print()
+            
+            def Egyszeru_csokkeno():
+                for x in range(len(adatok) - 1):
+                    for y in range(x + 1, len(adatok)):
+                        if  adatok[y] > adatok[x]:
+                            adatok[x], adatok[y] = adatok[y], adatok[x]
+                            
+                for adat in adatok:
+                    print(adat, end=" ")
+                print()
+            
+            def Kertitorpe_novekvo():
+                index = 0
+                while index < len(adatok):
+                    if index == 0:
+                        index = index + 1
+                    if adatok[index] >= adatok[index - 1]:
+                        index = index + 1
+                    else:
+                        adatok[index], adatok[index-1] = adatok[index-1], adatok[index]
+                        index = index - 1        
+                
+                for adat in adatok:
+                    print(adat, end=" ")
+                print()
+            
+            def Kertitorpe_csokkeno():
+                index = 0
+                while index < len(adatok):
+                    if index == 0:
+                        index = index + 1
+                    if adatok[index - 1]  >= adatok[index]:
+                        index = index + 1
+                    else:
+                        adatok[index], adatok[index-1] = adatok[index-1], adatok[index]
+                        index = index - 1        
+                
+                for adat in adatok:
+                    print(adat, end=" ")
+                print()
+            
+            def Adatbekeres_szam():
+                while True:
+                    try:
+                        inpt = int(input("írj be egy új számot: "))
+                        break
+                    except ValueError:
+                        print("Az adat a megadott feltételeknek nem felele meg, kérlek próbáld újra!")
+            
+                return inpt
+            
+            def Adatbekeres_szoveg():
+                while True:
+                    try:
+                        inpt = input("Írj be egy új szöveget: ")
+                        if inpt.isalpha():
+                            break
+                    except ValueError:
+                        print("Az adat a megadott feltételeknek nem felele meg, kérlek próbáld újra!") 
+            
+                return inpt
+            
+            def Indexbekeres():
+                while True:
+                    try:
+                        inpt = int(input("Adja meg a törölni kívánt adat indexét: "))
+                        break
+                    except ValueError:
+                        print("Nem megfelelő az adat")
+                    except IndexError:
+                        print("Nem megfelelő az index")  
+                
+                return inpt
+            
+            def AdatTorles():
+                while True:
+                    try:
+                        adat_torles_szama = int(input("Hányszor szeretnél törölni adatot? "))
+                        break
+                    except ValueError:
+                        print("Nem számot adtál meg! Próbáld újra.")
+                
+                return adat_torles_szama
+            
+            if Ellenorzes():
+                ListabaHelyezes()
+            
+                print("A zárójelben lévő betű beírásával tudsz választani")
+                inpt = input("Válassza ki az algoritmust: egyszerű cserés rendezés(e) vagy kertitörpe-rendezés(k): ")
+                while inpt != "e" or inpt != "k":
+                    if inpt == "e" or inpt == "k":
+                        break
+                    inpt = input("Válaszd ki az algoritmust: egyszerű cserés rendezés(e) vagy kertitörpe-rendezés(k): ")
+            
+                inpt_2 = input("Válaszd ki hogy növekvő(n) vagy csökkenő(cs) legyen a renezés: ")
+                while inpt_2 != "n" or inpt_2 != "cs":
+                    if inpt_2 == "n" or inpt_2 == "cs":
+                        break
+                    inpt_2 = input("Válaszd ki hogy növekvő(n) vagy csökkenő(cs) legyen a renezés: ")  
+                
+                if inpt == "e" and inpt_2 == "n":
+                    Egyszeru_novekvo()
+                    
+                    if Ellenorzes() == "szam":
+                        adatok.append(Adatbekeres_szam())
+                        Egyszeru_novekvo()
+                    else:
+                        adatok.append(Adatbekeres_szoveg())
+                        Egyszeru_novekvo()
+            
+                elif inpt == "e" and inpt_2 == "cs":
+                    Egyszeru_csokkeno()
+            
+                    if Ellenorzes() == "szam":
+                        adatok.append(Adatbekeres_szam())
+                        Egyszeru_csokkeno()
+            
+                    else:
+                        adatok.append(Adatbekeres_szoveg())
+                        Egyszeru_csokkeno()
+            
+                elif inpt == "k" and inpt_2 == "n":
+                    Kertitorpe_novekvo()
+            
+                    if Ellenorzes() == "szam":
+                        adatok.append(Adatbekeres_szam())
+                        Kertitorpe_novekvo()
+            
+                    else:
+                        adatok.append(Adatbekeres_szoveg())
+                        Kertitorpe_novekvo()
+            
+                elif inpt == "k" and inpt_2 == "cs":
+                    Kertitorpe_csokkeno()
+            
+                    if Ellenorzes() == "szam":
+                        adatok.append(Adatbekeres_szam())
+                        Kertitorpe_csokkeno()
+            
+                    else:
+                        adatok.append(Adatbekeres_szoveg())
+                        Kertitorpe_csokkeno()
+                
+                print("Szeretnél a listából adatot törölni? igen/nem: ", end="")
+                adat_torles = input("")
+                
+                if adat_torles == "igen":
+                    torlesek_szama = AdatTorles()
+                    i = 0 
+                    while torlesek_szama > i:
+                        adatok.pop(Indexbekeres())
+                        i +=1
+                        print("Az új adatlista", adatok)
+                     
+            else:
+                print("Az adatok nem megfelelőek")</p>
+        </div>
+    </div>>
+</body>
+</html>
